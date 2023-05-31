@@ -22,13 +22,6 @@ describe Application do
 
     end
   end
-  context 'GET /artists' do
-    it 'retrieve all artists' do
-      response = get('/artists')
-      expect(response.status).to eq(200)
-      expect(response.body).to include("Pixies, ABBA, Taylor Swift, Nina Simone")
-    end
-  end
   context 'POST /artist' do
     it 'should create a new artist' do
       response = post('/artists', name: 'Wild Thing', genre: 'Indie')
@@ -47,11 +40,29 @@ describe Application do
       expect(response.body).to include("Pixies")
     end
   end
+  context 'GET /artist/:id' do
+    it 'retrieve artist by artist id' do
+      response = get('/artists/1')
+      expect(response.body).to include("Rock")
+      expect(response.body).to include("Pixies")
+    end
+  end
   context 'Get /albums' do
-    it 'returns a list of albums' do
+    it 'returns a list of albums as HTML links' do
       response = get('/albums')
-      expect(response.body).to include("Title: Waterloo")
-      expect(response.body).to include("Title: Surfer Rosa")
+      expect(response.status).to eq(200)
+      expect(response.body).to include('<a href="/albums/2">Surfer Rosa</a><br />')
+      expect(response.body).to include('<a href="/albums/3">Waterloo</a><br />')
+      expect(response.body).to include('<a href="/albums/4">Super Trouper</a><br />')
+    end
+  end
+  context 'Get /artists' do
+    it 'returns a list of artists as HTML links' do
+      response = get('/artists')
+      expect(response.status).to eq(200)
+      expect(response.body).to include('<a href="/artists/2">ABBA</a><br />')
+      expect(response.body).to include('<a href="/artists/3">Taylor Swift</a><br />')
+      expect(response.body).to include('<a href="/artists/4">Nina Simone</a><br />')
     end
   end
 end
