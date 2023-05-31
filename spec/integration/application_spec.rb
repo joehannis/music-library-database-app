@@ -40,4 +40,18 @@ describe Application do
 
     end
   end
+  context 'GET /albums/:id' do
+    it 'retrieve artist by album id' do
+      response = get('/albums/1')
+      expect(response.body).to include("Doolittle")
+      expect(response.body).to include("Pixies")
+    end
+  end
+  context 'Get /albums' do
+    it 'returns a list of albums' do
+      response = get('/albums')
+      expect(response.body).to include("Title: Waterloo")
+      expect(response.body).to include("Title: Surfer Rosa")
+    end
+  end
 end
