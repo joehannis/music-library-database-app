@@ -24,7 +24,6 @@ class ArtistRepository
     end
 
     return artists
-    result_set
   end
 
   def find(id)
