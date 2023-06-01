@@ -65,4 +65,25 @@ describe Application do
       expect(response.body).to include('<a href="/artists/4">Nina Simone</a><br />')
     end
   end
+  context 'Get /albums/new' do
+    it 'should return the form to add a new album' do
+      response = get('/albums/new')
+
+      expect(response.status).to eq(200)
+      expect(response.body).to include('<form action="/albums" method="POST">')
+      expect(response.body).to include('<input type="text" name="title">')
+      expect(response.body).to include('<input type="text" name="release_year">')
+      expect(response.body).to include('<input type="text" name="artist_id">')
+    end
+  end
+  context 'Get /artists/new' do
+    it 'should return the form to add a new artist' do
+      response = get('/artists/new')
+
+      expect(response.status).to eq(200)
+      expect(response.body).to include('<form action="/albums" method="POST">')
+      expect(response.body).to include('<input type="text" name="name">')
+      expect(response.body).to include('<input type="text" name="genre">')
+    end
+  end
 end
